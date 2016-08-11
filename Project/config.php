@@ -1,6 +1,6 @@
 <?php
 
-define('APP_ROOT', '/blog');
+define('APP_ROOT', '/blog'); malka promqna
 
 define('DEFAULT_CONTROLLER', 'home');
 define('DEFAULT_ACTION', 'index');
