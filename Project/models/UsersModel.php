@@ -37,6 +37,13 @@ class UsersModel extends BaseModel
         $data = $result->fetch_row();
         return $data[0];
     }
+    public  function changeStatus(int $status, int $userId)
+    {
+        $statement = self::$db->prepare("UPDATE users SET status = ? WHERE users.id = ?");
+        $statement->bind_param("ii", $status, $userId);
+        $statement->execute();
+        return $statement->affected_rows >= 0;
+    }
     public function login(string $username, string $password)
     {
         $statement = self::$db->prepare("SELECT id FROM users WHERE username = ?");

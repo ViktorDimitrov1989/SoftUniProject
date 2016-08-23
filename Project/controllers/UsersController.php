@@ -106,6 +106,29 @@ class UsersController extends BaseController
         }
         $this->post = $user;
     }
+    public function block($userId)
+    {
+        if($this->isPost){
+            //Delete the requested post by id
+            if ($this->model->changeStatus(2, $userId)){
+                $this->addInfoMessage("User blocked.");
+            }
+            else{
+                $this->addErrorMessage("Error: cannot block this user.");
+            }
+            $this->redirect('users');
+        }
+        else{
+            //show confirm/delete form
+
+            $user = $this->model->getById($userId);
+            if (!$user){
+                $this->addErrorMessage("User does not exist.");
+                $this->redirect("users");
+            }
+            $this->post = $user;
+        }
+    }
     public function edit(int $id)
     {
 
@@ -116,8 +139,10 @@ class UsersController extends BaseController
             $fullName = $_POST['full_name'];
             
             $email = $_POST['email'];
+            
+            $status = $_SESSION['status'];
 
-
+            
             $role = $_POST['roles'];
             //            The same if which validates if the request method is “POST”,
 //            and several form value, validations in it.
@@ -156,11 +181,13 @@ class UsersController extends BaseController
             $username = $_POST['username'];
             $password = $_POST['password'];
 
-            if ($this->model->status($username) == 2){
+            $status = $this->model->status($username);
+            $_SESSION['status'] = $status;
+            if ($status == 2){
                 $this->addErrorMessage("You are banned from this site!");
                 return $this->redirect("home");
             }
-
+            
             if (password_verify($password, $this->model->getPassByUsername($username)['password_hash'])){
             $loggedUserId = $this->model->login($username, $password);
 
