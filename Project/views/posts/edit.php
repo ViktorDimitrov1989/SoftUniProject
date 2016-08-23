@@ -2,9 +2,6 @@
 
 <h1><?= htmlspecialchars($this->title)?></h1>
 
-
-
-<?= var_dump($this->post)?>
 <form method="post">
     <div>Title:</div>
     <input type="text" name="post_title" value="<?=

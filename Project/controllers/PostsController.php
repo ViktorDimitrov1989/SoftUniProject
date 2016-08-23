@@ -1,5 +1,6 @@
 <?php
 class PostsController extends BaseController
+
 {
     function onInit()
     {
@@ -13,6 +14,13 @@ class PostsController extends BaseController
         $this->posts = $this->model->getAll();
 
     }
+   /* public function tagsIterate(array $tags) TODO
+    {
+        foreach ($tags as $tag){
+
+            $this->model->insertPostTags($this->model->getTagIdByName($tag),19);
+        }
+    }*/
     public function create()
     {
         if ($this->isPost){
@@ -20,7 +28,7 @@ class PostsController extends BaseController
 //            This field is only set to true if there is a “POST” request to the server,
 //            and since our only “POST” in the Posts context is about creating posts,
 //            it is perfect for this function.
-            $title = $_POST['post_title'];
+                $title = $_POST['post_title'];
             if (strlen($title) < 1){
                 $this->setValidationError("post_title", "Title cannot be empty!");
             }
@@ -28,11 +36,15 @@ class PostsController extends BaseController
             if (strlen($content) < 1){
                 $this->setValidationError("post_content", "Content cannot be empty!");
             }
+
+            $tagName = $_POST['tag_name'];
             if ($this->formValid()){
                 $userId =  $_SESSION['user_id'];
-                if ($this->model->create($title, $content, $userId)){
+                if ($this->model->create($title, $content, $userId, $tagName)){
+
                     $this->addInfoMessage("Post created");
                     $this->redirect("posts");
+
                 }
                 else{
                     $this->addErrorMessage("Error: cannot create post");
@@ -40,16 +52,15 @@ class PostsController extends BaseController
                 }
             }
         }
-
-
     }
-    public function dropDownId()
+/*    public function dropDownId()
     {
         $this->ids = $this->model->getAllId();
         //view the users id
-    }
+    }*/
     public function edit(int $id)
     {
+
         if ($this->isPost){
             //Edit requested post (update it's fields)
             $title = $_POST['post_title'];
@@ -69,12 +80,14 @@ class PostsController extends BaseController
             if ($user_id <= 0 || $user_id > 1000000){
                 $this->setValidationError("user_id", "Invalid author user ID");
             }
-//            The same if which validates if the request method is “POST”,
+           //            The same if which validates if the request method is “POST”,
 //            and several form value, validations in it.
 //            Notice how the date is validated using regular expressions (REGEX).
 //            If all validations have succeeded we must edit the post, using the model,
+
             if ($this->formValid()){
                 if ($this->model->edit($id, $title, $content, $date, $user_id)){
+
                     $this->addInfoMessage("Post edited.");
             }
                 else{
@@ -82,12 +95,14 @@ class PostsController extends BaseController
                 }
                 $this->redirect('posts', 'view');
             }
+                
 
 //            Now, this will preload the post into the edit form,
 //            enabling us to edit it, and only when we submit the new values,
 //            the code in the if statement will execute.
 //            This should finalize our work in the PostController class.
         }
+        
         $post = $this->model->getById($id);
         if (!$post){
             $this->addErrorMessage("Error: post does not exist.");
@@ -123,5 +138,6 @@ class PostsController extends BaseController
     public function view(){
         $this->posts = $this->model->viewUserPosts();
     }
+    
 
 }

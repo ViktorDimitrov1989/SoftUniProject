@@ -12,7 +12,7 @@
         <?php foreach ($this->posts as $post) :?>
             <!--<i><?/*= var_dump($post)*/?></i>-->
     <tr>
-        <td><?= htmlspecialchars($post['title'])?>></td>
+        <td><?= htmlspecialchars($post['title'])?></td>
         <td><?= cutLongText($post['content'])?></td>
         <td><?= htmlspecialchars($post['date'])?></td>
         <td><a href="<?=APP_ROOT?>/posts/edit/<?= $post['id']?>">[Edit]</a>

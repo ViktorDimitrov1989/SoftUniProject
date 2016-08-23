@@ -10,19 +10,20 @@
         <th>Content</th>
         <th>Date</th>
         <th>Author</th>
+        <th>Tag</th>
         <th>Action</th>
     </tr>
         <?php foreach ($this->posts as $post) :?>
-            <?/*= var_dump($post)*/?>
-        <tr>
+            <tr>
             <td><?= $post['id']?></td>
-            <td><?= htmlspecialchars($post['title'])?>></td>
+            <td><?= htmlspecialchars($post['title'])?></td>
             <td><?= cutLongText($post['content'])?></td>
             <td><?= htmlspecialchars($post['date'])?></td>
             <td><?= $post['user_id']?></td>
+            <td><?= $post['tagName']?></td>
 
             <td>
-            <?php if ($post['user_id'] == $_SESSION['user_id']) : ?>
+            <?php if ($post['user_id'] == $_SESSION['user_id'] || $_SESSION['role'] == "Administrator") : ?>
                 <a href="<?=APP_ROOT?>/posts/edit/<?= $post['id']?>">[Edit]</a>
                 <a href="<?=APP_ROOT?>/posts/delete/<?= $post['id']?>">[Delete]</a></td>
             <?php endif; ?>

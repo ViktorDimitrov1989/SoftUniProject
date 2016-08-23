@@ -1,17 +1,13 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: Виктор
- * Date: 10.7.2016 г.
- * Time: 22:48 ч.
- */
+
 class PostsModel extends BaseModel
 {
+
     public function getAll() : array
     {
         //TODO: GET POSTS FROM THE DATABASE
-        $statement = self::$db->query("SELECT * FROM blog.posts ORDER BY DATE DESC");
+        $statement = self::$db->query("SELECT * FROM forum.posts ORDER BY DATE DESC");
         return $statement->fetch_all(MYSQLI_ASSOC);
 //        The function returns an array, as specified in the function declaration.
 //        This array consists of all the posts, fetched from the Database using a query,
@@ -21,7 +17,7 @@ class PostsModel extends BaseModel
     public function getById(int $id)
     {
         //TODO: GET PARTICULAR POST FROM DATABASE BY ID
-        $statement = self::$db->prepare("SELECT id, title, content, date, user_id
+        $statement = self::$db->prepare("SELECT id, title, content, date, user_id, tagName
         FROM posts WHERE id = ?");
         $statement->bind_param("i", $id);
         $statement->execute();
@@ -34,14 +30,50 @@ class PostsModel extends BaseModel
         return $statement->fetch_all(MYSQLI_ASSOC);
         //The function fetches all id's of the users from DB
     }
-    public function create(string $title, string $content, string $user_id) : bool
+    /*public function setTag(int $postId, int $tagId)
+    {
+        $statement = self::$db->prepare("INSERT INTO post_tags(post_id, tag_id) VALUES(?,?) ");
+            $statement->bind_param("ii", $postId, $tagId);
+            $result = $statement->execute();
+            return $result;
+        
+    }*/
+    public function getTagIdByName(string $tagName) : int
+    {
+        $statement = self::$db->prepare("SELECT tags.id FROM tags WHERE tags.name = ? ");
+        $statement->bind_param("s", $tagName);
+        $statement->execute() or die($statement->error);
+        $result = $statement->get_result();
+        if (!$result->num_rows){
+            return null;
+        }
+        else{
+            return $result->fetch_assoc()['id'];
+        }
+
+    }
+    
+    public function insertPostTags($postId, $tagId)
+    {
+        $statementTag = self::$db->prepare("INSERT INTO post_tags(post_id, tag_id) VALUES(?,?) ");
+        $statementTag->bind_param("ii", $postId, $tagId);
+        $statementTag->execute();
+
+    }
+    public function create(string $title, string $content, string $user_id, string $tagName) : bool
     {
         //TODO: CREATE POST AND PUT IT INTO DATABSE
         $statement = self::$db->prepare(
-            "INSERT INTO blog.posts(title, content, user_id) VALUES(?,?,?)" );
-        $statement->bind_param("sss", $title, $content, $user_id);
+            "INSERT INTO forum.posts(title, content, user_id, tagName) VALUES(?,?,?,?)");
+        $statement->bind_param("ssss", $title, $content, $user_id, $tagName);
         $statement->execute();
+
+
+        $id = $statement->insert_id;
+        $this->insertPostTags($id,$this->getTagIdByName($tagName));
+
         return $statement->affected_rows == 1;
+
 //        This will create a query, which will insert a post into the posts table.
 //    The query will be applied the, given by the controller, parameters and will be executed,
 //        returning a Boolean result, indicating whether it succeeded or failed.
@@ -49,8 +81,8 @@ class PostsModel extends BaseModel
     public function edit(
         string $id, string $title, string $content, string $date, int $user_id) : bool
     {
+
         //TODO: EDIT POST BY A GIVEN ID
-        $userID = $_SESSION['user_id'];
         $statement = self::$db->prepare("UPDATE posts SET title = ?, content = ?, date = ?, " .
         "user_id = ? WHERE id = ?");
         $statement->bind_param("sssii", $title, $content, $date, $user_id, $id);
@@ -60,6 +92,7 @@ class PostsModel extends BaseModel
     public function delete(int $id) : bool
     {
         //TODO: DELETE POST BY A GIVEN ID
+
         $statement = self::$db->prepare("DELETE FROM posts WHERE id = ?");
         $statement->bind_param("i", $id);
         $statement->execute();
@@ -68,8 +101,21 @@ class PostsModel extends BaseModel
     public function viewUserPosts(): array
     {
         $userID = $_SESSION['user_id'];
-        $statement = self::$db->query("SELECT * FROM blog.posts WHERE posts.user_id = $userID");
+        $statement = self::$db->query("SELECT * FROM forum.posts WHERE posts.user_id = $userID");
         return $statement->fetch_all(MYSQLI_ASSOC);
+    }
+    public function equal(int $id)
+    {
+        $statement = self::$db->query("SELECT posts.id FROM posts WHERE id = $id");
+        $statement->bind_param("i", $id);
+
+        return $statement->result();
+    }
+    public function tags() : array
+    {
+        $statement = self::$db->query("SELECT * FROM tags;");
+        return $statement->fetch_all(MYSQLI_ASSOC);
+
     }
 
 

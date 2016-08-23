@@ -16,13 +16,21 @@
     <?php if ($this->isLoggedIn) : ?>
         <a href="<?=APP_ROOT?>/posts">Posts</a>
         <a href="<?=APP_ROOT?>/posts/create">Create Post</a>
+
+        <a href="<?=APP_ROOT?>/users/edit_your_profile">Edit your profile</a>
+
+        <?php if ($_SESSION['role'] == "Administrator") {?>
         <a href="<?=APP_ROOT?>/users">Users</a>
+        <?php } ?>
+
         <a href="<?=APP_ROOT?>/posts/view">Your Posts</a>
+        <a href="<?=APP_ROOT?>/tags">Tags</a>
 
     <?php else: ?>
         <a href="<?=APP_ROOT?>/users/login">Login</a>
         <a href="<?=APP_ROOT?>/users/register">Register</a>
     <?php endif; ?>
+
     <?php if ($this->isLoggedIn) : ?>
         <div id="logged-in-info">
             <span>Hello, <b><?=htmlspecialchars($_SESSION['username'])?></b></span>
