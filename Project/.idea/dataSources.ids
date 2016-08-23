@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - forum@localhost" uuid="62be06f5-fcea-4785-9ceb-4e3c7e4020fc">
+    <database-info product="MySQL" version="5.5.5-10.1.13-MariaDB" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <database-model serializer="dbm" rdbms="MYSQL" format-version="2.5">
+      <schema id="1" name="forum"/>
+      <table id="2" parent="1" name="categories"/>
+      <table id="3" parent="1" name="post_tags"/>
+      <table id="4" parent="1" name="posts"/>
+      <table id="5" parent="1" name="roles"/>
+      <table id="6" parent="1" name="tags"/>
+      <table id="7" parent="1" name="topics"/>
+      <table id="8" parent="1" name="user_role"/>
+      <table id="9" parent="1" name="users"/>
+      <column id="10" parent="2" name="category_id">
+        <mandatory>1</mandatory>
+        <data-type>int(8)</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="11" parent="2" name="category_name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(60)</data-type>
+      </column>
+      <column id="12" parent="2" name="category_description">
+        <data-type>text</data-type>
+      </column>
+      <index id="13" parent="2" name="category_id_UNIQUE">
+        <columns>category_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="14" parent="2" name="category_id_UNIQUE">
+        <columns>category_id</columns>
+        <underlying-index>category_id_UNIQUE</underlying-index>
+      </key>
+      <key id="15" parent="2" name="PRIMARY">
+        <columns>category_id</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="16" parent="2" name="fk_categories_topics">
+        <columns>category_id</columns>
+        <ref-key>forum.topics(topic_category)</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="17" parent="3" name="post_id">
+        <data-type>int(8)</data-type>
+      </column>
+      <column id="18" parent="3" name="tag_id">
+        <data-type>int(8)</data-type>
+      </column>
+      <index id="19" parent="3" name="fk_posttags_posts_idx">
+        <columns>post_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="20" parent="3" name="fk_posttags_tags_idx">
+        <columns>tag_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <foreign-key id="21" parent="3" name="fk_posttags_posts">
+        <columns>post_id</columns>
+        <ref-key>~.posts.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="22" parent="3" name="fk_posttags_tags">
+        <columns>tag_id</columns>
+        <ref-key>~.tags.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="23" parent="4" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(8)</data-type>
+      </column>
+      <column id="24" parent="4" name="title">
+        <mandatory>1</mandatory>
+        <data-type>varchar(300)</data-type>
+      </column>
+      <column id="25" parent="4" name="content">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="26" parent="4" name="date">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+        <default-expression>&apos;CURRENT_TIMESTAMP&apos;</default-expression>
+      </column>
+      <column id="27" parent="4" name="user_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="28" parent="4" name="tagName">
+        <data-type>varchar(45)</data-type>
+      </column>
+      <column id="29" parent="4" name="topic_id">
+        <data-type>int(11)</data-type>
+      </column>
+      <index id="30" parent="4" name="fk_posts_topics_idx">
+        <columns>topic_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="31" parent="4" name="fk_posts_users_idx">
+        <columns>user_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="32" parent="4" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="33" parent="4" name="fk_posts_topic">
+        <columns>topic_id</columns>
+        <ref-key>~.topics.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="34" parent="4" name="fk_posts_users">
+        <columns>user_id</columns>
+        <ref-key>~.users.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="35" parent="5" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(8)</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="36" parent="5" name="role_name">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <key id="37" parent="5" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="38" parent="6" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="39" parent="6" name="name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(45)</data-type>
+      </column>
+      <index id="40" parent="6" name="name_UNIQUE">
+        <columns>name</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="41" parent="6" name="name_UNIQUE">
+        <columns>name</columns>
+        <underlying-index>name_UNIQUE</underlying-index>
+      </key>
+      <key id="42" parent="6" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="43" parent="7" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="44" parent="7" name="topic_subject">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="45" parent="7" name="topic_date">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+        <default-expression>&apos;CURRENT_TIMESTAMP&apos;</default-expression>
+      </column>
+      <column id="46" parent="7" name="topic_category">
+        <data-type>int(8)</data-type>
+      </column>
+      <column id="47" parent="7" name="topic_by">
+        <mandatory>1</mandatory>
+        <data-type>int(8)</data-type>
+      </column>
+      <column id="48" parent="7" name="posts_count">
+        <mandatory>1</mandatory>
+        <data-type>int(8)</data-type>
+      </column>
+      <column id="49" parent="7" name="topic_views">
+        <mandatory>1</mandatory>
+        <data-type>int(8)</data-type>
+      </column>
+      <index id="50" parent="7" name="fk_topics_categories_idx">
+        <columns>topic_category</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="51" parent="7" name="fk_topics_users_idx">
+        <columns>topic_by</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="52" parent="7" name="topic_id_UNIQUE">
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="53" parent="7" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <key id="54" parent="7" name="topic_id_UNIQUE">
+        <columns>id</columns>
+        <underlying-index>topic_id_UNIQUE</underlying-index>
+      </key>
+      <foreign-key id="55" parent="7" name="fk_topics_categories">
+        <columns>topic_category</columns>
+        <ref-key>~.categories.category_id_UNIQUE</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="56" parent="7" name="fk_topics_users">
+        <columns>topic_by</columns>
+        <ref-key>~.users.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="57" parent="8" name="user_id">
+        <mandatory>1</mandatory>
+        <data-type>int(8)</data-type>
+      </column>
+      <column id="58" parent="8" name="role_id">
+        <mandatory>1</mandatory>
+        <data-type>int(8)</data-type>
+      </column>
+      <index id="59" parent="8" name="fk_usersroles_roles_idx">
+        <columns>role_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="60" parent="8" name="fk_usersroles_users_idx">
+        <columns>user_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <foreign-key id="61" parent="8" name="fk_usersroles_roles">
+        <columns>role_id</columns>
+        <ref-key>~.roles.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="62" parent="8" name="fk_usersroles_users">
+        <columns>user_id</columns>
+        <ref-key>~.users.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="63" parent="9" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="64" parent="9" name="username">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="65" parent="9" name="password_hash">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="66" parent="9" name="full_name">
+        <data-type>varchar(200)</data-type>
+      </column>
+      <column id="67" parent="9" name="email">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="68" parent="9" name="user_date">
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+        <default-expression>&apos;CURRENT_TIMESTAMP&apos;</default-expression>
+      </column>
+      <column id="69" parent="9" name="status">
+        <data-type>int(11)</data-type>
+      </column>
+      <index id="70" parent="9" name="username_UNIQUE">
+        <columns>username</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="71" parent="9" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <key id="72" parent="9" name="username_UNIQUE">
+        <columns>username</columns>
+        <underlying-index>username_UNIQUE</underlying-index>
+      </key>
+    </database-model>
+  </data-source>
+</component>
