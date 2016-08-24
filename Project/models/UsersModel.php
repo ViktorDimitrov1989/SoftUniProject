@@ -67,23 +67,23 @@ class UsersModel extends BaseModel
         return $data[0]?$data[0]:'user';
     }
     public function edit(
-        int $id, string $username, string $full_name, string $email) : bool
+        int $id, string $full_name, string $email) : bool
     {
         //TODO: EDIT POST BY A GIVEN ID
-        $statement = self::$db->prepare("UPDATE users SET username = ?, full_name = ?, " .
+        $statement = self::$db->prepare("UPDATE users SET full_name = ?, " .
             "email = ? WHERE id = ?");
-        $statement->bind_param("sssi", $username, $full_name, $email, $id);
+        $statement->bind_param("ssi", $full_name, $email, $id);
         $statement->execute();
         return $statement->affected_rows >= 0;
     }
     public function editProfile(int $id,
-        string $username, string $full_name, string $email, string $password) : bool
+         string $full_name, string $email, string $password) : bool
     {
         //TODO: EDIT profile of logged user
         $password_hash  = password_hash($password, PASSWORD_DEFAULT);
-        $statement = self::$db->prepare("UPDATE users SET username = ?, full_name = ?, email = ?, " .
+        $statement = self::$db->prepare("UPDATE users SET full_name = ?, email = ?, " .
             "password_hash = ? WHERE id = ?");
-        $statement->bind_param("ssssi", $username, $full_name, $email, $password_hash, $id);
+        $statement->bind_param("sssi", $full_name, $email, $password_hash, $id);
         $statement->execute();
         return $statement->affected_rows >= 0;
     }

@@ -2,12 +2,8 @@
 
 <h1><?= htmlspecialchars($this->title)?></h1>
 
-<?php /*var_dump($this->post)*/?>
 
 <form method="post">
-    <div>Username:</div>
-    <input type="text" name="username" value="<?=
-    htmlspecialchars($this->post['username'])?>"/>
     <div>Full Name:</div>
     <input type="text" name="full_name" value="<?=
         htmlspecialchars($this->post['full_name'])?>"/>

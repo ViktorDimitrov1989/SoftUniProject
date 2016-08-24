@@ -62,7 +62,7 @@ class UsersController extends BaseController
         $id = $_SESSION['user_id'];
         if ($this->isPost){
             //Edit requested post (update it's fields)
-            $username = $_POST['username'];
+
 
             $fullName = $_POST['full_name'];
 
@@ -82,7 +82,7 @@ class UsersController extends BaseController
             if ($newPass == $repNewPass){
                 $password_hash = $newPass;
                 if ($this->formValid()){
-                    if ($this->model->editProfile($id, $username, $fullName, $email, $password_hash)){
+                    if ($this->model->editProfile($id, $fullName, $email, $password_hash)){
                         $this->addInfoMessage("Profile edited.");
                     }
                     else{
@@ -145,7 +145,7 @@ class UsersController extends BaseController
 
         if ($this->isPost){
             //Edit requested user (update it's fields)
-            $username = $_POST['username'];
+
             
             $fullName = $_POST['full_name'];
             
@@ -161,7 +161,7 @@ class UsersController extends BaseController
 //            If all validations have succeeded we must edit the post, using the model,
 
             if ($this->formValid()){
-                if ($this->model->edit($id, $username, $fullName, $email)){
+                if ($this->model->edit($id, $fullName, $email)){
                     $this->model->setRole($role, $id);
                     $this->addInfoMessage("User edited.");
                 }
