@@ -109,7 +109,7 @@ class UsersController extends BaseController
     public function block($userId)
     {
         if($this->isPost){
-            //Delete the requested post by id
+            //Block the requested user by id
             if ($this->model->changeStatus(2, $userId)){
                 $this->addInfoMessage("User blocked.");
             }
@@ -119,7 +119,7 @@ class UsersController extends BaseController
             $this->redirect('users');
         }
         else{
-            //show confirm/delete form
+
 
             $user = $this->model->getById($userId);
             if (!$user){
@@ -128,6 +128,17 @@ class UsersController extends BaseController
             }
             $this->post = $user;
         }
+    }
+    public function unblock($userId)
+    {
+            //Unblock the requested user by id
+            if ($this->model->changeStatus(1, $userId)){
+                $this->addInfoMessage("User unblocked.");
+            }
+            else{
+                $this->addErrorMessage("Error: cannot unblock this user.");
+            }
+            $this->redirect('users');
     }
     public function edit(int $id)
     {

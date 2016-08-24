@@ -19,8 +19,14 @@
 
     <td>
     <?php if ($_SESSION['role'] == "Administrator") : ?>
+
         <a href="<?=APP_ROOT?>/users/edit/<?= $user['id']?>">[Edit]</a>
-        <a href="<?=APP_ROOT?>/users/block/<?= $user['id']?>">[Block]</a></td>
+        <?php if ($this->model->status($user['username']) == 1) :?>
+            <a href="<?=APP_ROOT?>/users/block/<?= $user['id']?>">[Block]</a>
+        <?php else: ?>
+            <a href="<?=APP_ROOT?>/users/unblock/<?= $user['id']?>">[Unblock]</a>
+        <?php endif; ?>
+    </td>
         <?php endif; ?>
     </tr>
 <?php endforeach;?>
