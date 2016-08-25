@@ -4,10 +4,10 @@
 
 <form method="post">
     <div>Title:</div><input type="text" value="<?=
-    htmlspecialchars($this->category['category_name'])?>" disabled/>
+    htmlspecialchars($this->categories['category_name'])?>" disabled/>
     <div>Content:</div>
     <textarea rows="10" disabled><?=
-        htmlspecialchars($this->category['category_description'])?></textarea>
+        htmlspecialchars($this->categories['category_description'])?></textarea>
 
     <!--<div>Author ID</div><input type="text" value="<?/*=
      htmlspecialchars($this->post['user_id'])*/?>"disabled />-->
