@@ -1,24 +1,33 @@
-<?php $this->title = 'Welcome to My Blog'; ?>
+<?php $this->title = 'Welcome to My Forum';
+
+?>
 
 <h1><?=htmlspecialchars($this->title)?></h1>
 
 <!-- TODO: display the posts here -->
 <aside>
-    <h2>Recent Posts</h2>
-    <?php foreach ($this->sidebarPosts as $post) : ?>
-        <a href="<?=APP_ROOT?>/home/view/<?=$post['id']?>"><?= htmlentities($post['title'])?></a>
+    <h2>Recent Topics</h2>
+    <?php foreach ($this->sidebarTopics as $topic) : ?>
+        <a href="<?=APP_ROOT?>/topics/view/<?=$topic['id']?>"><?= htmlentities($topic['topic_subject'])?></a>
     <?php endforeach ?>
 </aside>
-<main id="posts">
-    <article>
-        <?php foreach ($this->posts as $post) : ?>
-            <h2 class="title"><?=htmlentities($post['title'])?></h2>
-        <div class="date"><i>Posted on</i>
-            <?=(new DateTime($post['date'])) ->format('d-M-Y')?>
-            <i>by</i><?=htmlentities($post['full_name'])?>
-        </div>
-        <p class="content"><?=$post['content']?></p>
+<main id="categories">
+    <div class="list-categories">
+        <?php foreach ($this->categories as $category) : ?>
+            <div class="category-name">
+                <a href="<?=APP_ROOT?>/categories/view/<?= $category['category_id']?>"><?=htmlentities($category['category_name'])?></a>
+
+            </div>
+            <p class="content"><?=$category['category_description']?></p>
+            <div class="category-content">
+                <?php foreach ($this -> topics as $topic) : ?>
+                    <?php if ($category['category_id'] == $topic['topic_category'])
+                    {?>
+                        <a style="display: block; padding: 0; margin: 0;" href="topics/view" class="topic_subject"><?=htmlentities($topic['topic_subject'])?></a><?php
+                    }?>
+                <?php endforeach ?>
+            </div>
         <?php endforeach ?>
-    </article>
+    </div>
 </main>
 
