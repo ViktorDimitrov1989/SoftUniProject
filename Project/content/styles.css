@@ -82,3 +82,17 @@ body>main:after {
 ul{
     background-color: #DDD;
 }
+
+div.category-name {
+   
+    background-color: orange;
+}
+
+div.list-categories {
+
+    background-color: #ffd381;
+}
+
+div.category-content {
+    background-color: #f7e6c7;
+}
