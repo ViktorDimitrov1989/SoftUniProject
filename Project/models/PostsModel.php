@@ -38,39 +38,15 @@ class PostsModel extends BaseModel
             return $result;
         
     }*/
-    public function getTagIdByName(string $tagName) : int
-    {
-        $statement = self::$db->prepare("SELECT tags.id FROM tags WHERE tags.name = ? ");
-        $statement->bind_param("s", $tagName);
-        $statement->execute() or die($statement->error);
-        $result = $statement->get_result();
-        if (!$result->num_rows){
-            return null;
-        }
-        else{
-            return $result->fetch_assoc()['id'];
-        }
 
-    }
-    
-    public function insertPostTags($postId, $tagId)
-    {
-        $statementTag = self::$db->prepare("INSERT INTO post_tags(post_id, tag_id) VALUES(?,?) ");
-        $statementTag->bind_param("ii", $postId, $tagId);
-        $statementTag->execute();
-
-    }
-    public function create(string $title, string $content, string $user_id, string $tagName) : bool
+    public function create(string $title, string $content, string $user_id) : bool
     {
         //TODO: CREATE POST AND PUT IT INTO DATABSE
         $statement = self::$db->prepare(
-            "INSERT INTO forum.posts(title, content, user_id, tagName) VALUES(?,?,?,?)");
-        $statement->bind_param("ssss", $title, $content, $user_id, $tagName);
+            "INSERT INTO forum.posts(title, content, user_id) VALUES(?,?,?)");
+        $statement->bind_param("sss", $title, $content, $user_id);
         $statement->execute();
-
-
-        $id = $statement->insert_id;
-        $this->insertPostTags($id,$this->getTagIdByName($tagName));
+        
 
         return $statement->affected_rows == 1;
 
@@ -111,12 +87,7 @@ class PostsModel extends BaseModel
 
         return $statement->result();
     }
-    public function tags() : array
-    {
-        $statement = self::$db->query("SELECT * FROM tags;");
-        return $statement->fetch_all(MYSQLI_ASSOC);
 
-    }
 
 
 }

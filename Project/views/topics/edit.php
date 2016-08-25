@@ -1,27 +1,24 @@
-<?php $this->title = 'Edit Existing Category';
+<?php $this->title = 'Edit Existing Topic';
 
 ?>
 
 <h1><?= htmlspecialchars($this->title)?></h1>
 
 <form method="post">
-    <div>Title:</div>
-    <input type="text" name="category_name" value="<?=
-    htmlspecialchars($this->category['category_name'])?>"/>
-    <div>Content:</div>
-    <textarea rows="10" name="category_description"><?=
-        htmlspecialchars($this->category['category_description'])?></textarea>
+    <div>Subject:</div>
+    <input type="text" name="topic_subject" value="<?=
+    htmlspecialchars($this->topic['topic_subject'])?>"/>
 
-    <!--<div>Author ID:
-    <select name="user_id">
-        <?php /*$ids = $this->model->getAllId();
-            foreach ($ids as $id):*/?>
-        <option value="<?/*= $id['id'] */?>"><?/*=$id['id']*/?></option>
-        <?php /*endforeach;*/?>
-    </select>-->
-    <!--</div>-->
+    <div>Tag:
+        <select name="tag_name">
+            <?php $tags = $this->model->tags();
+            foreach ($tags as $tag):?>
+                <option value="<?= $tag['name'] ?>"><?=$tag['name']?></option>
+            <?php endforeach;?>
+        </select></div>
+
     <div><input type="submit" value="Edit"/>
-        <a href="<?=APP_ROOT?>/categories/view">[Cancel]</a></div>
+        <a href="<?=APP_ROOT?>/topics">[Cancel]</a></div>
 </form>
 
 <!--The form is incredibly similar to the delete form, -->

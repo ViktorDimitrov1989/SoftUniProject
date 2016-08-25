@@ -6,13 +6,15 @@
 
     <tr>
         <th>ID</th>
-        <th>Title</th>
+        <th>Subject</th>
+        <th>Tags</th>
 
     </tr>
     <?php foreach ($this->topic as $topic) :?>
         <tr>
             <td><?= $topic['id']?></td>
             <td><?= htmlspecialchars($topic['topic_subject'])?></td>
+            <td><?= htmlspecialchars($this->model->getTags($topic['id']))?></td>
 
             <td>
 

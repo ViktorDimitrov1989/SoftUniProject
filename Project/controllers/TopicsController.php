@@ -28,19 +28,17 @@ class TopicsController extends BaseController
 //            This field is only set to true if there is a “POST” request to the server,
 //            and since our only “POST” in the Posts context is about creating posts,
 //            it is perfect for this function.
-                $title = $_POST['topic_subject'];
-            if (strlen($title) < 1){
-                $this->setValidationError("topic_subject", "Title cannot be empty!");
+                $subject = $_POST['topic_title'];
+            if (strlen($subject) < 1){
+                $this->setValidationError("topic_title", "Title cannot be empty!");
             }
-
-
+            $tagName = $_POST['tag_name'];
             if ($this->formValid()){
                 $userId =  $_SESSION['user_id'];
-                if ($this->model->create($title, $userId)){
-
+                
+                if ($this->model->create($subject, $userId, $tagName)){
                     $this->addInfoMessage("Topic created");
-                    $this->redirect("");
-
+                    $this->redirect("topics");
                 }
                 else{
                     $this->addErrorMessage("Error: cannot create topic");
@@ -63,7 +61,7 @@ class TopicsController extends BaseController
             if (strlen($title) < 1){
                 $this->setValidationError("topic_subject", "Topic title cannot be empty!");
             }
-
+            
             $user_id = $_SESSION['user_id'];
             if ($user_id <= 0 || $user_id > 1000000){
                 $this->setValidationError("user_id", "Invalid author user ID");
@@ -74,14 +72,14 @@ class TopicsController extends BaseController
 //            If all validations have succeeded we must edit the post, using the model,
 
             if ($this->formValid()){
-                if ($this->model->edit($id, $title, $user_id)){
-
+                if ($this->model->edit($id, $title)){
+                    $this->model->updateTag($this->model->getTagIdByName($_POST['tag_name']),$id);
                     $this->addInfoMessage("Topic edited.");
             }
                 else{
                     $this->addErrorMessage("Error. Cannot edit this topic.");
                 }
-                $this->redirect('home', 'view');
+                $this->redirect('topics');
             }
                 
 
@@ -90,8 +88,13 @@ class TopicsController extends BaseController
 //            the code in the if statement will execute.
 //            This should finalize our work in the PostController class.
         }
-        
 
+        $topic = $this->model->getById($id);
+        if (!$topic){
+            $this->addErrorMessage("Error: post does not exist.");
+            $this->redirect("posts", "view");
+        }
+        $this->topic = $topic;
     }
     public function delete(int $id)
     {
@@ -103,7 +106,7 @@ class TopicsController extends BaseController
             else{
                 $this->addErrorMessage("Error: cannot delete topic.");
             }
-            $this->redirect('home', 'view');
+            $this->redirect('topics');
         }
         else{
             //show confirm/delete form
@@ -115,12 +118,9 @@ class TopicsController extends BaseController
             }
             $this->topic = $topic;
         }
-
-
     }
     public function view(){
-        $this->topic = $this->model->viewTopics();
+        $this->topic = $this->model->getAll();
     }
-    
 
 }

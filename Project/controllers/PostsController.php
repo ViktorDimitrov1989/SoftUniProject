@@ -37,10 +37,10 @@ class PostsController extends BaseController
                 $this->setValidationError("post_content", "Content cannot be empty!");
             }
 
-            $tagName = $_POST['tag_name'];
+            
             if ($this->formValid()){
                 $userId =  $_SESSION['user_id'];
-                if ($this->model->create($title, $content, $userId, $tagName)){
+                if ($this->model->create($title, $content, $userId)){
 
                     $this->addInfoMessage("Post created");
                     $this->redirect("posts");

@@ -24,15 +24,44 @@ class TopicsModel extends BaseModel
         $result = $statement->get_result()->fetch_assoc();
         return $result;
     }
-
-    public function create(string $title) : bool
+    public function tags() : array
     {
-        //TODO: CREATE POST AND PUT IT INTO DATABSE
+        $statement = self::$db->query("SELECT * FROM tags;");
+        return $statement->fetch_all(MYSQLI_ASSOC);
+
+    }
+    public function getTagIdByName(string $tagName) : int
+    {
+        $statement = self::$db->prepare("SELECT tags.id FROM tags WHERE tags.name = ? ");
+        $statement->bind_param("s", $tagName);
+        $statement->execute() or die($statement->error);
+        $result = $statement->get_result();
+        if (!$result->num_rows){
+            return null;
+        }
+        else{
+            return $result->fetch_assoc()['id'];
+        }
+
+    }
+    public function insertTopicTags($topicId, $tagId)
+    {
+        $statementTag = self::$db->prepare("INSERT INTO topic_tags(topic_id, tag_id) VALUES(?,?) ");
+        $statementTag->bind_param("ii", $topicId, $tagId);
+        $statementTag->execute();
+
+    }
+    public function create(string $title, int $id, string $tagName) : bool
+    {
+        //TODO: CREATE TOPIC AND PUT IT INTO DATABASE
         $statement = self::$db->prepare(
-            "INSERT INTO forum.topics(topic_subject) VALUES(?) ");
-        $statement->bind_param("s", $title);
+            "INSERT INTO forum.topics(topic_subject, topic_by) VALUES(?,?) ");
+        $statement->bind_param("si", $title, $id);
         $statement->execute();
 
+        $id = $statement->insert_id;
+        $this->insertTopicTags($id,$this->getTagIdByName($tagName));
+        
 
         return $statement->affected_rows == 1;
 
@@ -42,11 +71,11 @@ class TopicsModel extends BaseModel
     }
 
     public function edit(
-        string $id, string $title) : bool
+        int $id, string $title) : bool
     {
 
-        //TODO: EDIT POST BY A GIVEN ID
-        $statement = self::$db->prepare("UPDATE topics SET topic_subject = ?, WHERE id = ?");
+        //TODO: EDIT TOPIC BY A GIVEN ID
+        $statement = self::$db->prepare("UPDATE topics SET topic_subject = ? WHERE id = ?");
         $statement->bind_param("si", $title, $id);
         $statement->execute();
         return $statement->affected_rows >= 0;
@@ -54,7 +83,7 @@ class TopicsModel extends BaseModel
 
     public function delete(int $id) : bool
     {
-        //TODO: DELETE POST BY A GIVEN ID
+        //TODO: DELETE TOPIC BY A GIVEN ID
 
         $statement = self::$db->prepare("DELETE FROM topics WHERE id = ?");
         $statement->bind_param("i", $id);
@@ -66,6 +95,31 @@ class TopicsModel extends BaseModel
         $userID = $_SESSION['user_id'];
         $statement = self::$db->query("SELECT * FROM forum.topics JOIN forum.categories WHERE topic_category = categories.category_id");
         return $statement->fetch_all(MYSQLI_ASSOC);
+    }
+    public function updateTag($tagId, $topicId)
+    {
+        $statement = self::$db->prepare("UPDATE forum.topic_tags SET tag_id = ?  WHERE topic_id = ?");
+        $statement->bind_param("ii", $tagId, $topicId);
+        $statement->execute();
+        return $statement->affected_rows >= 0;
+    }
+    public function getTags($topicId)
+    {
+        $statement = self::$db->prepare("SELECT tags.name FROM forum.tags LEFT JOIN " . 
+		"forum.topic_tags " . 
+			"ON forum.tags.id = topic_tags.tag_id " .
+		"LEFT JOIN forum.topics " .
+			"ON forum.topics.id = topic_tags.topic_id " .
+            "WHERE topics.id = ? ");
+        $statement->bind_param("i",$topicId);
+        $statement->execute() or die($statement->error);
+        $result = $statement->get_result();
+        if (!$result->num_rows){
+            return null;
+        }
+        else{
+            return $result->fetch_assoc()['name'];
+        }
     }
 }
 ?>
