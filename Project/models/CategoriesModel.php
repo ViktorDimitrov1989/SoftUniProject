@@ -4,7 +4,7 @@
 class CategoriesModel extends BaseModel
 {
 
-    public function getAllCategories() : array
+    public function getAll() : array
     {
         //TODO: GET POSTS FROM THE DATABASE
         $statement = self::$db->query("SELECT * FROM forum.categories");

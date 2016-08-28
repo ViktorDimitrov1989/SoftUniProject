@@ -10,6 +10,9 @@
         <th>Content</th>
         
     </tr>
+
+    
+
     <?php foreach ($this->categories as $category) :?>
         <!--<i><?/*= var_dump($post)*/?></i>-->
         <tr>

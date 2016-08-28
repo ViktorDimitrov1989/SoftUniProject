@@ -47,4 +47,14 @@ class HomeModel extends BaseModel
         $result = $statement->get_result()->fetch_assoc();
         return $result;
     }
+
+    public function getTopicById(int $id)
+    {
+        $statement = self::$db->prepare(
+            "SELECT topics.id, topic_subject WHERE topics.id = ?");
+        $statement->bind_param("i", $id);
+        $statement->execute();
+        $result = $statement->get_result()->fetch_assoc();
+        return $result;
+    }
 }

@@ -10,6 +10,7 @@
 
 
     </tr>
+    
     <?php foreach ($this->topic as $topic) :?>
         <!--<i><?/*= var_dump($post)*/?></i>-->
         <tr>

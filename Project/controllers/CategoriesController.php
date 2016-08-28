@@ -11,7 +11,7 @@ class CategoriesController extends BaseController
     public function index()
     {
         // TODO: Implement "index" page logic
-        $this->categories = $this->model->getAllCategories();
+        $this->categories = $this->model->getAll();
 
     }
     /* public function tagsIterate(array $tags) TODO
