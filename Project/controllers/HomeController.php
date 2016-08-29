@@ -10,8 +10,25 @@ class HomeController extends BaseController
         $this->categories = array_slice($lastCategories, 0, 3);
         $this->sidebarTopics = $lastTopics;
         $this->topics = array_slice($lastTopics, 0, 3);
+
+
     }
-	
+	function search()
+    {
+        $output = null;
+        if (isset($_POST['submit'])){
+            $search = htmlspecialchars($_POST['search']);
+
+            $result = $this->model->search($search);
+            if (count($result) > 0){
+                $this->topics = $result;
+            }
+            else{
+                $this->addInfoMessage("We didn't find any results for '$search', try something different");
+                $this->redirect("");
+            }
+        }
+    }
 	function view($id)
     {
         // TODO: Load a post to be displayed here ...
@@ -19,4 +36,5 @@ class HomeController extends BaseController
         $this->topic = $this->model->getTopicById($id);
         $this->categories = $this->model->getCategoryById($id);
     }
+
 }
