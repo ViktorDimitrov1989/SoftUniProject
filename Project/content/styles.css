@@ -103,3 +103,7 @@ a:-webkit-any-link {
     color: -webkit-link;
     cursor: auto;
 }
+
+form.search {
+    margin-bottom: 10px;
+}
