@@ -11,11 +11,11 @@
 
 <body>
 <header>
-    <a href="<?=APP_ROOT?>"><img src="<?=APP_ROOT?>/content/images/site-logo.png"></a>
+    <a href="<?=APP_ROOT?>"><img width="120px" src="<?=APP_ROOT?>/content/images/forum_logo.png"></a>
     <a href="<?=APP_ROOT?>/">Home</a>
     <?php if ($this->isLoggedIn) : ?>
-        <a href="<?=APP_ROOT?>/posts">Posts</a>
-        <a href="<?=APP_ROOT?>/posts/create">Create Post</a>
+        <a href="<?=APP_ROOT?>/topics">Topics</a>
+        <a href="<?=APP_ROOT?>/topic/create">Create Topic</a>
 
         <a href="<?=APP_ROOT?>/users/edit_your_profile">Edit your profile</a>
 
@@ -24,7 +24,6 @@
         <?php } ?>
 
         <a href="<?=APP_ROOT?>/posts/view">Your Posts</a>
-        <a href="<?=APP_ROOT?>/tags">Tags</a>
 
     <?php else: ?>
         <a href="<?=APP_ROOT?>/users/login">Login</a>

@@ -7,11 +7,13 @@ class UsersController extends BaseController
         $this->authorize();
         $this->users = $this->model->getAll();
         //view the users
+
+
     }
-    
+
     public function register()
     {
-		// TODO: your user registration functionality will come here ...
+        // TODO: your user registration functionality will come here ...
         if ($this->isPost){
             $username = $_POST['username'];
             if (strlen($username) <= 2){
@@ -131,14 +133,14 @@ class UsersController extends BaseController
     }
     public function unblock($userId)
     {
-            //Unblock the requested user by id
-            if ($this->model->changeStatus(1, $userId)){
-                $this->addInfoMessage("User unblocked.");
-            }
-            else{
-                $this->addErrorMessage("Error: cannot unblock this user.");
-            }
-            $this->redirect('users');
+        //Unblock the requested user by id
+        if ($this->model->changeStatus(1, $userId)){
+            $this->addInfoMessage("User unblocked.");
+        }
+        else{
+            $this->addErrorMessage("Error: cannot unblock this user.");
+        }
+        $this->redirect('users');
     }
     public function edit(int $id)
     {
@@ -146,14 +148,14 @@ class UsersController extends BaseController
         if ($this->isPost){
             //Edit requested user (update it's fields)
 
-            
+
             $fullName = $_POST['full_name'];
-            
+
             $email = $_POST['email'];
-            
+
             $status = $_SESSION['status'];
 
-            
+
             $role = $_POST['roles'];
             //            The same if which validates if the request method is “POST”,
 //            and several form value, validations in it.
@@ -185,9 +187,12 @@ class UsersController extends BaseController
         }
         $this->post = $user;
     }
+
+
+
     public function login()
     {
-		// TODO: your user login functionality will come here ...
+        // TODO: your user login functionality will come here ...
         if ($this->isPost){
             $username = $_POST['username'];
             $password = $_POST['password'];
@@ -198,41 +203,44 @@ class UsersController extends BaseController
                 $this->addErrorMessage("You are banned from this site!");
                 return $this->redirect("home");
             }
-            
+
             if (password_verify($password, $this->model->getPassByUsername($username)['password_hash'])){
-            $loggedUserId = $this->model->login($username, $password);
+                $loggedUserId = $this->model->login($username, $password);
 
 
 
-            if ($loggedUserId){
-                $_SESSION['username'] = $username;
-                $_SESSION['user_id'] = $loggedUserId;
+                if ($loggedUserId){
+                    $_SESSION['username'] = $username;
+                    $_SESSION['user_id'] = $loggedUserId;
 
 
 
-                if ($this->model->role($loggedUserId) != null){
-                    $role = $this->model->role($loggedUserId);
-                    $this->addErrorMessage("Hello $role");
-                    $_SESSION['role'] = $role;
+                    if ($this->model->role($loggedUserId) != null){
+                        $role = $this->model->role($loggedUserId);
+                        $this->addErrorMessage("Hello $role");
+                        $_SESSION['role'] = $role;
+                    }
+                    else{
+                        $this->addErrorMessage("Hello user");
+                        /*unset($_SESSION['role']);*/
+                    }
+                    $this->addInfoMessage("Login succesfull.");
+
+                    return $this->redirect("home");
                 }
-                else{
-                    $this->addErrorMessage("Hello user");
-                    /*unset($_SESSION['role']);*/
+                if ($this->model->getRank($loggedUserId) > 0 && $this->model->getRank($loggedUserId) < 11){
+                    $this->addInfoMessage("Your rank is nubie");
                 }
-                $this->addInfoMessage("Login succesfull.");
-
-                return $this->redirect("home");
-            }
             }
             else{
                 $this->addErrorMessage("Login failed!");
             }
         }
     }
-    
+
     public function logout()
     {
-		// TODO: your user logout functionality will come here ...
+        // TODO: your user logout functionality will come here ...
         session_destroy();
         $this->addInfoMessage("Logout successful");
         $this->redirect("");

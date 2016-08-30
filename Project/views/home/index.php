@@ -12,8 +12,6 @@
         <a href="<?=APP_ROOT?>/topics/view/<?=$topic['id']?>"><?= htmlentities($topic['topic_subject'])?></a>
     <?php endforeach ?>
 </aside>
-<?php var_dump($_COOKIE['username'])?>
-<?php var_dump($_SERVER['REQUEST_URI'])?>
 <form action="home/search" method="post">
     <input type="text" name="search"/>
     <input type="submit" name="submit" value="search">

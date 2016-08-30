@@ -1,5 +1,5 @@
 body>header {
-    background: #eee;
+    background: #ffa500;
     padding: 5px;
 }
 
@@ -11,14 +11,14 @@ body>header>a>img, body>header a  {
 }
 
 body>footer {
-    background: #eee;
+    background: #f7e6c7;
     padding: 5px;
     margin: 10px 0;
     text-align: center;
 }
 
 table th, table td {
-    background: #DDD;
+    background: #ffd381;
     padding: 5px;
 }
 
@@ -57,9 +57,10 @@ ul#messages li.error {
 }
 
 body>aside {
+    border-radius: 15px;
     float: right;
     width: 200px;
-    background: #CCC;
+    background: #ff7800;
     padding: 15px;
     margin-left: 20px;
 }
@@ -95,4 +96,10 @@ div.list-categories {
 
 div.category-content {
     background-color: #f7e6c7;
+}
+
+a:-webkit-any-link {
+    text-decoration: none;
+    color: -webkit-link;
+    cursor: auto;
 }
