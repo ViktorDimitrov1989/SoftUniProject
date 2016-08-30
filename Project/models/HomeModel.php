@@ -5,6 +5,7 @@ class HomeModel extends BaseModel
     // TODO: your database access functions for the home page will come here ...
     public function search(string $str) : array 
     {
+
         $statement = self::$db->query("SELECT * FROM topics WHERE topic_subject LIKE '%$str%'");
         return $statement->fetch_all(MYSQLI_ASSOC);
     }

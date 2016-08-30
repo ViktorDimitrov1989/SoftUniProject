@@ -21,14 +21,13 @@
         <?php foreach ($this->categories as $category) : ?>
             <div class="category-name">
                 <a href="<?=APP_ROOT?>/categories/view/<?= $category['category_id']?>"><?=htmlentities($category['category_name'])?></a>
-
             </div>
             <p class="content"><?=$category['category_description']?></p>
             <div class="category-content">
                 <?php foreach ($this -> topics as $topic) : ?>
                     <?php if ($category['category_id'] == $topic['topic_category'])
                     {?>
-                        <a style="display: block; padding: 0; margin: 0;" href="topics/view" class="topic_subject"><?=htmlentities($topic['topic_subject'])?></a><?php
+                        <a style="display: block; padding: 0; margin: 0;" href="topics/view/<?= $topic['topic_category']?>" class="topic_subject"><?=htmlentities($topic['topic_subject'])?></a><?php
                     }?>
                 <?php endforeach ?>
             </div>

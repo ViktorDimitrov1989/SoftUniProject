@@ -5,7 +5,13 @@ class UsersController extends BaseController
     public function index()
     {
         $this->authorize();
+        if ($_SESSION['role'] == "Administrator"){
         $this->users = $this->model->getAll();
+        }
+        else{
+            $this->addInfoMessage('Access denied, only administrator can see the users');
+            $this->redirect("");
+        }
         //view the users
 
 
@@ -39,6 +45,8 @@ class UsersController extends BaseController
             }
             $email = $_POST['email'];
             $status = 1;
+            $rank = 'Simo';
+            $_SESSION['rank'] = $rank;
             if ($this->formValid()){
                 $userId = $this->model->register($username, $password, $full_name, $email, $status);
 
@@ -193,6 +201,10 @@ class UsersController extends BaseController
     public function login()
     {
         // TODO: your user login functionality will come here ...
+        if (isset($_SESSION['username'])){
+            $this->addInfoMessage('You are already logged in');
+            $this->redirect("");
+        }
         if ($this->isPost){
             $username = $_POST['username'];
             $password = $_POST['password'];
@@ -203,7 +215,7 @@ class UsersController extends BaseController
                 $this->addErrorMessage("You are banned from this site!");
                 return $this->redirect("home");
             }
-
+            
             if (password_verify($password, $this->model->getPassByUsername($username)['password_hash'])){
                 $loggedUserId = $this->model->login($username, $password);
 
@@ -213,6 +225,19 @@ class UsersController extends BaseController
                     $_SESSION['username'] = $username;
                     $_SESSION['user_id'] = $loggedUserId;
 
+                    if ($this->model->getRank($loggedUserId) >= 0 && $this->model->getRank($loggedUserId) < 10){
+                        $rank = 'Simo';
+                    }
+                    elseif ($this->model->getRank($loggedUserId) >= 10 && $this->model->getRank($loggedUserId) < 20){
+                        $rank = 'noob';
+                    }
+                    elseif ($this->model->getRank($loggedUserId) >= 20 && $this->model->getRank($loggedUserId) < 30){
+                        $rank = 'advanced';
+                    }
+                    elseif ($this->model->getRank($loggedUserId) >= 30 && $this->model->getRank($loggedUserId) < 41){
+                        $rank = 'wizard';
+                    }
+                    $_SESSION['rank'] = $rank;
 
 
                     if ($this->model->role($loggedUserId) != null){
@@ -228,9 +253,7 @@ class UsersController extends BaseController
 
                     return $this->redirect("home");
                 }
-                if ($this->model->getRank($loggedUserId) > 0 && $this->model->getRank($loggedUserId) < 11){
-                    $this->addInfoMessage("Your rank is nubie");
-                }
+
             }
             else{
                 $this->addErrorMessage("Login failed!");

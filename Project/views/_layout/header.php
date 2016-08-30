@@ -15,16 +15,18 @@
     <a href="<?=APP_ROOT?>/">Home</a>
     <?php if ($this->isLoggedIn) : ?>
         <a href="<?=APP_ROOT?>/topics">Topics</a>
-        <a href="<?=APP_ROOT?>/topic/create">Create Topic</a>
+        <a href="<?=APP_ROOT?>/topics/create">Create Topic</a>
 
         <a href="<?=APP_ROOT?>/users/edit_your_profile">Edit your profile</a>
 
-        <?php if ($_SESSION['role'] == "Administrator") {?>
-        <a href="<?=APP_ROOT?>/users">Users</a>
-        <?php } ?>
-
         <a href="<?=APP_ROOT?>/posts/view">Your Posts</a>
-
+        
+        <?php if ($_SESSION['role'] == "Administrator") {?>
+            <b>Admin panel: </b>
+            <a href="<?=APP_ROOT?>/users">Users</a>
+            <a href="<?=APP_ROOT?>/categories">Categories</a>
+        <?php } ?>
+    
     <?php else: ?>
         <a href="<?=APP_ROOT?>/users/login">Login</a>
         <a href="<?=APP_ROOT?>/users/register">Register</a>
@@ -36,6 +38,8 @@
             <form method="post" action="<?=APP_ROOT?>/users/logout">
                 <input type="submit" value="Logout"/>
             </form>
+            <br>
+            <span><b>Your rank is: <?= $_SESSION['rank']?></b></span>
         </div>
     <?php endif; ?>
 </header>

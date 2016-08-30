@@ -11,7 +11,15 @@ class CategoriesController extends BaseController
     public function index()
     {
         // TODO: Implement "index" page logic
-        $this->categories = $this->model->getAll();
+        $this->authorize();
+        if ($_SESSION['role'] == "Administrator"){
+            $this->categories = $this->model->getAll();
+        }
+        else{
+            $this->addInfoMessage('Access denied, only administrator can see the categories');
+            $this->redirect("");
+        }
+
 
     }
     /* public function tagsIterate(array $tags) TODO

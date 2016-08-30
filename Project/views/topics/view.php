@@ -10,9 +10,9 @@
 
 
     </tr>
-    
     <?php foreach ($this->topic as $topic) :?>
         <!--<i><?/*= var_dump($post)*/?></i>-->
+
         <tr>
             <td><?= $topic['id'] ?></td>
             <td><?= htmlspecialchars($topic['topic_subject'])?></td>
