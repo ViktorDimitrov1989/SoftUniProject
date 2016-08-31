@@ -18,7 +18,7 @@ class TopicsModel extends BaseModel
     public function getById(int $id)
     {
         //TODO: GET PARTICULAR POST FROM DATABASE BY ID
-        $statement = self::$db->prepare("SELECT topic_subject FROM forum.topics WHERE id = ?");
+        $statement = self::$db->prepare("SELECT * FROM forum.topics WHERE id = ?");
         $statement->bind_param("i", $id);
         $statement->execute();
         $result = $statement->get_result()->fetch_assoc();
@@ -97,10 +97,12 @@ class TopicsModel extends BaseModel
         $statement->execute();
         return $statement->affected_rows == 1;
     }
-    public function view(): array
+    public function view(int $topicId): array
     {
         $userID = $_SESSION['user_id'];
-        $statement = self::$db->query("SELECT * FROM forum.topics JOIN forum.categories WHERE topic_category = categories.category_id");
+        $statement = self::$db->prepare("SELECT * FROM forum.posts jOIN forum.topics WHERE topics.id = ?");
+        $statement->bind_param("i", $topicId);
+        $statement->execute();
         return $statement->fetch_all(MYSQLI_ASSOC);
     }
     public function updateTag($tagId, $topicId)
@@ -127,6 +129,17 @@ class TopicsModel extends BaseModel
         else{
             return $result->fetch_assoc()['name'];
         }
+    }
+
+    public function getAllPosts() : array
+    {
+        //TODO: GET POSTS FROM THE DATABASE
+        $statement = self::$db->query("SELECT * FROM forum.posts ORDER BY DATE DESC");
+        return $statement->fetch_all(MYSQLI_ASSOC);
+//        The function returns an array, as specified in the function declaration.
+//        This array consists of all the posts, fetched from the Database using a query,
+//        and ordered in descending order by the date they were posted on.
+
     }
 }
 ?>

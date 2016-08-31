@@ -86,8 +86,8 @@ class PostsController extends BaseController
 //            If all validations have succeeded we must edit the post, using the model,
 
             if ($this->formValid()){
-
                 if ($this->model->edit($id, $title, $content, $date, $user_id)){
+
                     $this->addInfoMessage("Post edited.");
             }
                 else{

@@ -120,8 +120,9 @@ class TopicsController extends BaseController
             $this->topic = $topic;
         }
     }
-    public function view(){
-        $this->topic = $this->model->getAll();
+    public function view($topicId){
+        $this->topic = $this->model->getById($topicId);
+        $this->post = $this->model->getAllPosts();
     }
 
 }
