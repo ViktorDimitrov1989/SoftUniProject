@@ -30,6 +30,13 @@ class TopicsModel extends BaseModel
         return $statement->fetch_all(MYSQLI_ASSOC);
 
     }
+
+    public function categories() : array
+    {
+        $statement = self::$db->query("SELECT * FROM categories;");
+        return $statement->fetch_all(MYSQLI_ASSOC);
+
+    }
     public function getTagIdByName(string $tagName) : int
     {
         $statement = self::$db->prepare("SELECT tags.id FROM tags WHERE tags.name = ? ");
@@ -51,17 +58,17 @@ class TopicsModel extends BaseModel
         $statementTag->execute();
 
     }
-    public function create(string $title, int $id, string $tagName) : bool
+    public function create(string $title, int $id, int $categoryId, string $tagName) : bool
     {
         //TODO: CREATE TOPIC AND PUT IT INTO DATABASE
         $statement = self::$db->prepare(
-            "INSERT INTO forum.topics(topic_subject, topic_by) VALUES(?,?) ");
-        $statement->bind_param("si", $title, $id);
+            "INSERT INTO forum.topics(topic_subject, topic_by, topic_category) VALUES(?,?,?) ");
+        $statement->bind_param("sii", $title, $id, $categoryId);
         $statement->execute();
 
         $id = $statement->insert_id;
         $this->insertTopicTags($id,$this->getTagIdByName($tagName));
-        
+
 
         return $statement->affected_rows == 1;
 

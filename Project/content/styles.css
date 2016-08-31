@@ -107,3 +107,8 @@ a:-webkit-any-link {
 form.search {
     margin-bottom: 10px;
 }
+
+div.bottom_images {
+    display: inline-block;
+
+}
