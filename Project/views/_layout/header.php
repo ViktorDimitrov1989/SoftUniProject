@@ -25,6 +25,7 @@
             <b>Admin panel: </b>
             <a href="<?=APP_ROOT?>/users">Users</a>
             <a href="<?=APP_ROOT?>/categories">Categories</a>
+            <a href="<?=APP_ROOT?>/tags">Tags</a>
         <?php } ?>
 
 
