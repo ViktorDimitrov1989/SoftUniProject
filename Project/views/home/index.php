@@ -20,7 +20,7 @@
     <div class="list-categories">
         <?php foreach ($this->categories as $category) : ?>
             <div class="category-name">
-                <a href="<?=APP_ROOT?>/categories/view/"><?=htmlentities($category['category_name'])?></a>
+                <b href="<?=APP_ROOT?>/categories/view/"><?=htmlentities($category['category_name'])?></b>
             </div>
             <p class="content"><?=$category['category_description']?></p>
             <div class="category-content">
@@ -35,4 +35,6 @@
         <?php endforeach ?>
     </div>
 </main>
+
+<a href="<?=APP_ROOT?>/categories/view/">List Categories</a>
 
