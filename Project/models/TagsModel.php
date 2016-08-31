@@ -20,5 +20,15 @@ class TagsModel extends BaseModel
         $result = $statement->get_result()->fetch_assoc();
         return $result;
     }
+    /*public function createTag(string $tagName)
+    {
+        $statement = self::$db->prepare(
+            "INSERT INTO forum.tags(name);
+        $statement->bind_param("s", $tagName);
+        $statement->execute();
+
+
+        return $statement->affected_rows == 1;
+    }*/
     
 }

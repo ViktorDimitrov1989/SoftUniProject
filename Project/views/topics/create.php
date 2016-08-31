@@ -6,7 +6,17 @@
     <div>Title:</div>
     <input type="text" name="topic_title"/>
 
-        
+    <div>Category:
+
+    <select name="category_id">
+        <?php $categories = $this->model->categories();
+        foreach ($categories as $category):?>
+            <option value="<?= $category['category_id'] ?>"><?=$category['category_name']?></option>
+        <?php endforeach;
+        ?>
+    </select>
+    </div>
+    
     <div>Tag:
         
     <select name="tag_name">

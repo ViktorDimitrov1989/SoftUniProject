@@ -16,6 +16,5 @@ class TagsController extends BaseController
             $this->addInfoMessage("PASS");
 
         }
-        
     }
 }

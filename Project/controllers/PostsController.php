@@ -6,6 +6,7 @@ class PostsController extends BaseController
     {
         // TODO: Implement "on initialization" logic
         $this->authorize();
+
     }
     public function index()
     {
@@ -58,6 +59,7 @@ class PostsController extends BaseController
     }*/
     public function edit($id)
     {
+
         if ($this->isPost){
             //Edit requested post (update it's fields)
             $title = $_POST['post_title'];
@@ -93,6 +95,7 @@ class PostsController extends BaseController
                 }
                 $this->redirect('posts', 'view');
             }
+                
 
 //            Now, this will preload the post into the edit form,
 //            enabling us to edit it, and only when we submit the new values,
@@ -109,6 +112,7 @@ class PostsController extends BaseController
     }
     public function delete($id)
     {
+
         if($this->isPost){
             //Delete the requested post by id
             if ($this->model->delete($id)){
@@ -129,6 +133,8 @@ class PostsController extends BaseController
             }
             $this->post = $post;
         }
+
+
     }
     public function view(){
         $this->posts = $this->model->viewUserPosts();

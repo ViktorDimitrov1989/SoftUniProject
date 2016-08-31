@@ -12,15 +12,13 @@
         <?php foreach ($this->posts as $post) :?>
             <?/*= var_dump(base64_encode($post['id']))*/?>
     <tr>
-        <?php $id = base64_encode($post['id'])?>
+        <?php /*$id = base64_encode($post['id'])*/?>
         <td><?= htmlspecialchars($post['title'])?></td>
         <td><?= cutLongText($post['content'])?></td>
         <td><?= htmlspecialchars($post['date'])?></td>
-        <td><a href="<?=APP_ROOT?>/posts/edit/<?= $id ?>">[Edit]</a>
-        <a href="<?=APP_ROOT?>/posts/delete/<?= $id ?>">[Delete]</a></td>
+        <td><a href="<?=APP_ROOT?>/posts/edit/<?= $post['id'] ?>">[Edit]</a>
+        <a href="<?=APP_ROOT?>/posts/delete/<?= $post['id'] ?>">[Delete]</a></td>
     </tr>
-
-
 
 <?php endforeach?>
 <!--    This is how a foreach loop is made in PHP scripts. -->
