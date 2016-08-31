@@ -7,9 +7,9 @@ class HomeController extends BaseController
         // TODO: Load posts to be displayed here ...
         $lastCategories = $this->model->getLastCategories(5);
         $lastTopics = $this->model->getLastTopics(5);
-        $this->categories = array_slice($lastCategories, 0, 3);
-        $this->sidebarTopics = $lastTopics;
-        $this->topics = array_slice($lastTopics, 0, 3);
+        $this->categories = $lastCategories;
+        $this->sidebarTopics = array_slice($lastTopics, 0, 5);
+        $this->topics = $lastTopics;
 
 
     }

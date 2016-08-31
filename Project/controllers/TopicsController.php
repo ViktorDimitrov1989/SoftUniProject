@@ -33,10 +33,11 @@ class TopicsController extends BaseController
                 $this->setValidationError("topic_title", "Title cannot be empty!");
             }
             $tagName = $_POST['tag_name'];
+            $categoryId = $_POST['category_id'];
             if ($this->formValid()){
                 $userId =  $_SESSION['user_id'];
                 
-                if ($this->model->create($subject, $userId, $tagName)){
+                if ($this->model->create($subject, $categoryId, $tagName)){
                     $this->addInfoMessage("Topic created");
                     $this->redirect("topics");
                 }
