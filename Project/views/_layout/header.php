@@ -15,7 +15,7 @@
     <a href="<?=APP_ROOT?>/">Home</a>
     <?php if ($this->isLoggedIn) : ?>
         <a href="<?=APP_ROOT?>/topics">Topics</a>
-        <a href="<?=APP_ROOT?>/topics/create">Create Topic</a>
+       
 
         <a href="<?=APP_ROOT?>/users/edit_your_profile">Edit your profile</a>
 
