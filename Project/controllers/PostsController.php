@@ -12,7 +12,6 @@ class PostsController extends BaseController
     {
        // TODO: Implement "index" page logic
         $this->posts = $this->model->getAll();
-
     }
    /* public function tagsIterate(array $tags) TODO
     {
@@ -21,7 +20,7 @@ class PostsController extends BaseController
             $this->model->insertPostTags($this->model->getTagIdByName($tag),19);
         }
     }*/
-    public function create()
+    public function create($topicId)
     {
         if ($this->isPost){
 //            This will check if the isPost field is set to true.
@@ -40,7 +39,7 @@ class PostsController extends BaseController
             
             if ($this->formValid()){
                 $userId =  $_SESSION['user_id'];
-                if ($this->model->create($title, $content, $userId)){
+                if ($this->model->create($title, $content, $userId, $topicId)){
 
                     $this->addInfoMessage("Post created");
                     $this->redirect("posts");

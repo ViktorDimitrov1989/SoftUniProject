@@ -20,7 +20,8 @@
     <div class="list-categories">
         <?php foreach ($this->categories as $category) : ?>
             <div class="category-name">
-                <b href="<?=APP_ROOT?>/categories/view/"><?=htmlentities($category['category_name'])?></b>
+                <a href="<?=APP_ROOT?>/topics/create/<?=$category['category_id']?>"><?=htmlentities($category['category_name'])?></a>
+                <i>create topic in this category by this hyperlink</i>
             </div>
             <p class="content"><?=$category['category_description']?></p>
             <div class="category-content">
@@ -28,7 +29,7 @@
                     <?php if ($category['category_id'] == $topic['topic_category'])
                     {?>
                         <a href="<?=APP_ROOT?>/topics/view/<?=$topic['id']?>" class="topic_subject"><?=htmlentities($topic['topic_subject'])?></a><?php
-                
+
                     }?>
                 <?php endforeach ?>
             </div>

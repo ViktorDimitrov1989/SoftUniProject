@@ -1,7 +1,7 @@
 <?php $this->title = $this->topic['topic_subject'];?>
 
 <h1><?=htmlspecialchars($this->title)?></h1>
-
+<?=var_dump($this->topic)?>
 <table>
 
     <tr>
@@ -40,4 +40,4 @@
     <!--    We will implement them later.-->
 </table>
 
-<a href="<?=APP_ROOT?>/posts/create">Create new Post</a>
+<a href="<?=APP_ROOT?>/posts/create/<?=$this->topic['id']?>">Create new Post For this topic</a>

@@ -39,12 +39,12 @@ class PostsModel extends BaseModel
         
     }*/
 
-    public function create(string $title, string $content, string $user_id) : bool
+    public function create(string $title, string $content, string $user_id, int $topic_id) : bool
     {
         //TODO: CREATE POST AND PUT IT INTO DATABSE
         $statement = self::$db->prepare(
-            "INSERT INTO forum.posts(title, content, user_id) VALUES(?,?,?)");
-        $statement->bind_param("sss", $title, $content, $user_id);
+            "INSERT INTO forum.posts(title, content, user_id, topic_id) VALUES(?,?,?,?)");
+        $statement->bind_param("sssi", $title, $content, $user_id, $topic_id);
         $statement->execute();
         
 
