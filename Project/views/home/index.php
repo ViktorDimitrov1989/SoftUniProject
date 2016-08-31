@@ -12,7 +12,7 @@
         <a href="<?=APP_ROOT?>/topics/view/<?=$topic['id']?>"><?= htmlentities($topic['topic_subject'])?></a>
     <?php endforeach ?>
 </aside>
-<form action="home/search" method="post">
+<form class="search" action="home/search" method="post">
     <input type="text" name="search"/>
     <input type="submit" name="submit" value="search">
 </form>
@@ -20,14 +20,15 @@
     <div class="list-categories">
         <?php foreach ($this->categories as $category) : ?>
             <div class="category-name">
-                <a href="<?=APP_ROOT?>/categories/view/<?= $category['category_id']?>"><?=htmlentities($category['category_name'])?></a>
+                <a href="<?=APP_ROOT?>/categories/view/"><?=htmlentities($category['category_name'])?></a>
             </div>
             <p class="content"><?=$category['category_description']?></p>
             <div class="category-content">
                 <?php foreach ($this -> topics as $topic) : ?>
                     <?php if ($category['category_id'] == $topic['topic_category'])
                     {?>
-                        <a style="display: block; padding: 0; margin: 0;" href="topics/view/<?= $topic['topic_category']?>" class="topic_subject"><?=htmlentities($topic['topic_subject'])?></a><?php
+                        <a href="<?=APP_ROOT?>/topics/view/<?=$topic['id']?>" class="topic_subject"><?=htmlentities($topic['topic_subject'])?></a><?php
+                
                     }?>
                 <?php endforeach ?>
             </div>
