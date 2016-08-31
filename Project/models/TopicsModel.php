@@ -58,7 +58,7 @@ class TopicsModel extends BaseModel
         $statementTag->execute();
 
     }
-    public function create(string $title, int $id, int $categoryId, string $tagName) : bool
+    public function create(string $title, int $id, int $tagName, int $categoryId) : bool
     {
         //TODO: CREATE TOPIC AND PUT IT INTO DATABASE
         $statement = self::$db->prepare(

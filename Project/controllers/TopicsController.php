@@ -36,7 +36,7 @@ class TopicsController extends BaseController
             if ($this->formValid()){
                 $userId =  $_SESSION['user_id'];
                 
-                if ($this->model->create($subject, $categoryId,$userId, $tagName)){
+                if ($this->model->create($subject, $userId, $categoryId)){
                     $this->addInfoMessage("Topic created");
                     $this->redirect("topics");
                 }
