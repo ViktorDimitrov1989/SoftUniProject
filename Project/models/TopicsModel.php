@@ -92,7 +92,7 @@ class TopicsModel extends BaseModel
     {
         //TODO: DELETE TOPIC BY A GIVEN ID
 
-        $statement = self::$db->prepare("DELETE FROM topics WHERE id = ?");
+        $statement = self::$db->prepare("DELETE FROM forum.topics WHERE id = ?");
         $statement->bind_param("i", $id);
         $statement->execute();
         return $statement->affected_rows == 1;

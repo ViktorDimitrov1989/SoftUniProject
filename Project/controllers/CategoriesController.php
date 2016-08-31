@@ -88,7 +88,7 @@ class CategoriesController extends BaseController
                 else{
                     $this->addErrorMessage("Error. Cannot edit this category.");
                 }
-                $this->redirect('home', 'view');
+                $this->redirect('categories');
             }
 
 //            Now, this will preload the post into the edit form,
@@ -115,7 +115,7 @@ class CategoriesController extends BaseController
             else{
                 $this->addErrorMessage("Error: cannot delete category.");
             }
-            $this->redirect('home', 'view');
+            $this->redirect('categories');
         }
         else{
             //show confirm/delete form

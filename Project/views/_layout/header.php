@@ -19,11 +19,15 @@
 
         <a href="<?=APP_ROOT?>/users/edit_your_profile">Edit your profile</a>
 
+        <a href="<?=APP_ROOT?>/posts/view">Your Posts</a>
+
         <?php if ($_SESSION['role'] == "Administrator") {?>
-        <a href="<?=APP_ROOT?>/users">Users</a>
+            <b>Admin panel: </b>
+            <a href="<?=APP_ROOT?>/users">Users</a>
+            <a href="<?=APP_ROOT?>/categories">Categories</a>
         <?php } ?>
 
-        <a href="<?=APP_ROOT?>/posts/view">Your Posts</a>
+
 
     <?php else: ?>
         <a href="<?=APP_ROOT?>/users/login">Login</a>
@@ -36,6 +40,8 @@
             <form method="post" action="<?=APP_ROOT?>/users/logout">
                 <input type="submit" value="Logout"/>
             </form>
+            <br>
+            <span><b>Your rank is: <?= $_SESSION['rank']?></b></span>
         </div>
     <?php endif; ?>
 </header>

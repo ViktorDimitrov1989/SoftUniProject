@@ -5,15 +5,22 @@ class UsersController extends BaseController
     public function index()
     {
         $this->authorize();
-        $this->users = $this->model->getAll();
-        //view the users
-
-
+        if ($_SESSION['role'] == "Administrator"){
+            $this->users = $this->model->getAll();
+        }
+        else{
+            $this->addInfoMessage('Access denied, only administrator can see the users');
+            $this->redirect("");
+        }
     }
 
     public function register()
     {
         // TODO: your user registration functionality will come here ...
+        if (session_status() != PHP_SESSION_NONE) {
+            $this->addInfoMessage('You are logged in');
+            $this->redirect("");
+        }
         if ($this->isPost){
             $username = $_POST['username'];
             if (strlen($username) <= 2){
@@ -193,6 +200,10 @@ class UsersController extends BaseController
     public function login()
     {
         // TODO: your user login functionality will come here ...
+        if (isset($_SESSION['username'])){
+            $this->addInfoMessage('You are already logged in');
+            $this->redirect("");
+        }
         if ($this->isPost){
             $username = $_POST['username'];
             $password = $_POST['password'];
@@ -213,6 +224,19 @@ class UsersController extends BaseController
                     $_SESSION['username'] = $username;
                     $_SESSION['user_id'] = $loggedUserId;
 
+                    if ($this->model->getRank($loggedUserId) >= 0 && $this->model->getRank($loggedUserId) < 10){
+                        $rank = 'Simo';
+                    }
+                    elseif ($this->model->getRank($loggedUserId) >= 10 && $this->model->getRank($loggedUserId) < 20){
+                        $rank = 'noob';
+                    }
+                    elseif ($this->model->getRank($loggedUserId) >= 20 && $this->model->getRank($loggedUserId) < 30){
+                        $rank = 'advanced';
+                    }
+                    elseif ($this->model->getRank($loggedUserId) >= 30 && $this->model->getRank($loggedUserId) < 41){
+                        $rank = 'wizard';
+                    }
+                    $_SESSION['rank'] = $rank;
 
 
                     if ($this->model->role($loggedUserId) != null){

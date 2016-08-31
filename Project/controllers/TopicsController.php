@@ -12,7 +12,6 @@ class TopicsController extends BaseController
     {
        // TODO: Implement "index" page logic
         $this->topic = $this->model->getAll();
-
     }
    /* public function tagsIterate(array $tags) TODO
     {
@@ -37,7 +36,7 @@ class TopicsController extends BaseController
             if ($this->formValid()){
                 $userId =  $_SESSION['user_id'];
                 
-                if ($this->model->create($subject, $categoryId, $tagName)){
+                if ($this->model->create($subject, $categoryId,$userId, $tagName)){
                     $this->addInfoMessage("Topic created");
                     $this->redirect("topics");
                 }
@@ -103,6 +102,7 @@ class TopicsController extends BaseController
     {
         if($this->isPost){
             //Delete the requested post by id
+            
             if ($this->model->delete($id)){
                 $this->addInfoMessage("Topic deleted.");
             }

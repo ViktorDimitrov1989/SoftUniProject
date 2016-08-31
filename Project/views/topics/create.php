@@ -7,6 +7,7 @@
     <input type="text" name="topic_title"/>
 
     <div>Category:
+
     <select name="category_id">
         <?php $categories = $this->model->categories();
         foreach ($categories as $category):?>
@@ -17,8 +18,10 @@
     </div>
     
     <div>Tag:
+        
     <select name="tag_name">
         <?php $tags = $this->model->tags();
+
         foreach ($tags as $tag):?>
             <option value="<?= $tag['name'] ?>"><?=$tag['name']?></option>
         <?php endforeach;?>

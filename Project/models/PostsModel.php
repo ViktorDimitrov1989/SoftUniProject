@@ -14,7 +14,7 @@ class PostsModel extends BaseModel
 //        and ordered in descending order by the date they were posted on.
 
     }
-    public function getById(int $id)
+    public function getById($id)
     {
         //TODO: GET PARTICULAR POST FROM DATABASE BY ID
         $statement = self::$db->prepare("SELECT id, title, content, date, user_id, tagName
