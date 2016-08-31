@@ -57,9 +57,9 @@ class CategoriesController extends BaseController
             $this->ids = $this->model->getAllId();
             //view the users id
         }*/
-    public function edit(int $id)
+    public function edit($i)
     {
-
+        $id = base64_decode($i);
         if ($this->isPost){
             //Edit requested post (update it's fields)
             $title = $_POST['category_name'];
@@ -98,15 +98,16 @@ class CategoriesController extends BaseController
         }
         $category = $this->model->getCategoryById($id);
         if (!$category){
-            $this->addErrorMessage("Error: post does not exist.");
+            $this->addErrorMessage("Error: category does not exist.");
             $this->redirect("", "view");
         }
         $this->category = $category;
 
 
     }
-    public function delete(int $id)
+    public function delete($i)
     {
+        $id = base64_decode($i);
         if($this->isPost){
             //Delete the requested post by id
             if ($this->model->delete($id)){

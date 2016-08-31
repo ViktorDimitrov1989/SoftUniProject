@@ -17,6 +17,7 @@ class PostsModel extends BaseModel
     public function getById($id)
     {
         //TODO: GET PARTICULAR POST FROM DATABASE BY ID
+        
         $statement = self::$db->prepare("SELECT id, title, content, date, user_id, tagName
         FROM posts WHERE id = ?");
         $statement->bind_param("i", $id);
@@ -59,6 +60,7 @@ class PostsModel extends BaseModel
     {
 
         //TODO: EDIT POST BY A GIVEN ID
+        
         $statement = self::$db->prepare("UPDATE posts SET title = ?, content = ?, date = ?, " .
         "user_id = ? WHERE id = ?");
         $statement->bind_param("sssii", $title, $content, $date, $user_id, $id);
@@ -68,7 +70,7 @@ class PostsModel extends BaseModel
     public function delete(int $id) : bool
     {
         //TODO: DELETE POST BY A GIVEN ID
-
+        
         $statement = self::$db->prepare("DELETE FROM posts WHERE id = ?");
         $statement->bind_param("i", $id);
         $statement->execute();

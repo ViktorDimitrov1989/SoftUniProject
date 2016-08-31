@@ -15,7 +15,7 @@
     </tr>
         <?php foreach ($this->posts as $post) :?>
             <tr>
-                <?php /*$id = base64_encode($post['id'])*/?>
+                <?php $id = base64_encode($post['id'])?>
             <td><?= $post['id']?></td>
             <td><?= htmlspecialchars($post['title'])?></td>
             <td><?= cutLongText($post['content'])?></td>
@@ -25,8 +25,8 @@
 
             <td>
             <?php if ($post['user_id'] == $_SESSION['user_id'] || $_SESSION['role'] == "Administrator") : ?>
-                <a href="<?=APP_ROOT?>/posts/edit/<?= $post['id']?>">[Edit]</a>
-                <a href="<?=APP_ROOT?>/posts/delete/<?= $post['id']?>">[Delete]</a></td>
+                <a href="<?=APP_ROOT?>/posts/edit/<?= $id?>">[Edit]</a>
+                <a href="<?=APP_ROOT?>/posts/delete/<?= $id?>">[Delete]</a></td>
             <?php endif; ?>
         </tr>
     <?php endforeach?>

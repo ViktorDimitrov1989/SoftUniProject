@@ -12,14 +12,15 @@
     </tr>
     <?php foreach ($this->categories as $category) :?>
         <tr>
+            <?php $id = base64_encode($category['category_id'])?>
             <td><?= $category['category_id']?></td>
             <td><?= htmlspecialchars($category['category_name'])?></td>
             <td><?= cutLongText($category['category_description'])?></td>
 
             <td>
 
-                <a href="<?=APP_ROOT?>/categories/edit/<?= $category['category_id']?>">[Edit]</a>
-                <a href="<?=APP_ROOT?>/categories/delete/<?= $category['category_id']?>">[Delete]</a></td>
+                <a href="<?=APP_ROOT?>/categories/edit/<?= $id?>">[Edit]</a>
+                <a href="<?=APP_ROOT?>/categories/delete/<?= $id?>">[Delete]</a></td>
 
         </tr>
     <?php endforeach?>

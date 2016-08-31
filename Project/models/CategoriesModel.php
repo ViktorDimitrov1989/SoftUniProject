@@ -14,7 +14,7 @@ class CategoriesModel extends BaseModel
 //        and ordered in descending order by the date they were posted on.
     }
 
-    public function getCategoryById(int $id)
+    public function getCategoryById($id)
     {
         //TODO: GET PARTICULAR POST FROM DATABASE BY ID
         $statement = self::$db->prepare("SELECT category_id, category_name, category_description FROM forum.categories WHERE category_id = ?");
@@ -49,7 +49,7 @@ class CategoriesModel extends BaseModel
         return $statement->affected_rows >= 0;
     }
 
-    public function delete(int $id) : bool
+    public function delete($id) : bool
     {
         //TODO: DELETE POST BY A GIVEN ID
 
