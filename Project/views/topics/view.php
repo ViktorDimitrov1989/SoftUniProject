@@ -29,6 +29,9 @@
             </tr><?php
         }?>
     <?php endforeach ?>
+
+
+
     <!--    This is how a foreach loop is made in PHP scripts. -->
     <!--    The loop will traverse all the posts from the controller, -->
     <!--    which we previously extracted, and will print info about each of those posts, -->
@@ -36,3 +39,5 @@
     <!--    Also, this will add two links, which will later point to the edit and delete functionalities. -->
     <!--    We will implement them later.-->
 </table>
+
+<a href="<?=APP_ROOT?>/posts/create">Create new Post</a>
