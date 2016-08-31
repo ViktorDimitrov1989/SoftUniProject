@@ -58,12 +58,12 @@ class TopicsModel extends BaseModel
         $statementTag->execute();
 
     }
-    public function create(string $title, int $id, int $tagName, int $categoryId) : bool
+    public function create(string $title, int $id,$topicCategory,string $tagName) : bool
     {
         //TODO: CREATE TOPIC AND PUT IT INTO DATABASE
         $statement = self::$db->prepare(
             "INSERT INTO forum.topics(topic_subject, topic_by, topic_category) VALUES(?,?,?) ");
-        $statement->bind_param("sii", $title, $id, $categoryId);
+        $statement->bind_param("sii", $title, $id, $topicCategory);
         $statement->execute();
 
         $id = $statement->insert_id;

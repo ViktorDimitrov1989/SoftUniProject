@@ -20,34 +20,31 @@ class TopicsController extends BaseController
             $this->model->insertPostTags($this->model->getTagIdByName($tag),19);
         }
     }*/
-    public function create()
+    public function create($id)
     {
         if ($this->isPost){
 //            This will check if the isPost field is set to true.
 //            This field is only set to true if there is a “POST” request to the server,
 //            and since our only “POST” in the Posts context is about creating posts,
 //            it is perfect for this function.
-                $subject = $_POST['topic_title'];
+            $subject = $_POST['topic_title'];
             if (strlen($subject) < 1){
                 $this->setValidationError("topic_title", "Title cannot be empty!");
             }
             $tagName = $_POST['tag_name'];
-            $categoryId = $_POST['category_id'];
             if ($this->formValid()){
                 $userId =  $_SESSION['user_id'];
-                
-                if ($this->model->create($subject, $userId, $categoryId)){
+
+                if ($this->model->create($subject, $userId,$id, $tagName)){
                     $this->addInfoMessage("Topic created");
                     $this->redirect("topics");
                 }
                 else{
                     $this->addErrorMessage("Error: cannot create topic");
-                    $this->redirect("");
+                    $this->redirect("topics");
                 }
             }
         }
-
-
     }
 /*    public function dropDownId()
     {
