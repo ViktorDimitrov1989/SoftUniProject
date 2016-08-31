@@ -96,6 +96,12 @@ div.list-categories {
 
 div.category-content {
     background-color: #f7e6c7;
+
+}
+div>a {
+    display: block;
+    padding: 0;
+    margin: 0;
 }
 
 a:-webkit-any-link {
@@ -106,9 +112,4 @@ a:-webkit-any-link {
 
 form.search {
     margin-bottom: 10px;
-}
-
-div.bottom_images {
-    display: inline-block;
-
 }
