@@ -1,10 +1,10 @@
 
     <footer>
-        (c) Blog System, 2016
+        (c) Forum System, 1987
     </footer>
 
     <?php require_once('fill-posted-fields.php'); ?>
-
+    
     <?php require_once('show-validation-errors.php'); ?>
 
 </body>
