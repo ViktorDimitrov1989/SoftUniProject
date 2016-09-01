@@ -37,5 +37,4 @@
     </div>
 </main>
 
-<a href="<?=APP_ROOT?>/categories/view/">List Categories</a>
 

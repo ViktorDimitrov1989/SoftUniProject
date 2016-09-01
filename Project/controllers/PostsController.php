@@ -57,9 +57,9 @@ class PostsController extends BaseController
         $this->ids = $this->model->getAllId();
         //view the users id
     }*/
-    public function edit($i)
+    public function edit($id)
     {
-        $id = base64_decode($i);
+        /*$id = base64_decode($i);*/
         if ($this->isPost){
             //Edit requested post (update it's fields)
             $title = $_POST['post_title'];
@@ -110,9 +110,9 @@ class PostsController extends BaseController
         }
         $this->post = $post;
     }
-    public function delete($i)
+    public function delete($id)
     {
-        $id = base64_decode($i);
+        /*$id = base64_decode($i);*/
         if($this->isPost){
             //Delete the requested post by id
             if ($this->model->delete($id)){

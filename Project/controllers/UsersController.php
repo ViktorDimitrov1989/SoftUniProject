@@ -224,16 +224,18 @@ class UsersController extends BaseController
                     $_SESSION['username'] = $username;
                     $_SESSION['user_id'] = $loggedUserId;
 
-                    if ($this->model->getRank($loggedUserId) >= 0 && $this->model->getRank($loggedUserId) < 10){
+                    if ($this->model->getRank($loggedUserId)['PostsFromUser'] >= 0 && $this->model->getRank($loggedUserId)['PostsFromUser'] < 10){
                         $rank = 'Simo';
+
                     }
-                    elseif ($this->model->getRank($loggedUserId) >= 10 && $this->model->getRank($loggedUserId) < 20){
+                    elseif ($this->model->getRank($loggedUserId)['PostsFromUser'] >= 10 && $this->model->getRank($loggedUserId)['PostsFromUser'] < 20){
                         $rank = 'noob';
+
                     }
-                    elseif ($this->model->getRank($loggedUserId) >= 20 && $this->model->getRank($loggedUserId) < 30){
+                    elseif ($this->model->getRank($loggedUserId)['PostsFromUser'] >= 20 && $this->model->getRank($loggedUserId)['PostsFromUser'] < 30){
                         $rank = 'advanced';
                     }
-                    elseif ($this->model->getRank($loggedUserId) >= 30 && $this->model->getRank($loggedUserId) < 41){
+                    elseif ($this->model->getRank($loggedUserId)['PostsFromUser'] >= 30 && $this->model->getRank($loggedUserId)['PostsFromUser'] < 41){
                         $rank = 'wizard';
                     }
                     $_SESSION['rank'] = $rank;

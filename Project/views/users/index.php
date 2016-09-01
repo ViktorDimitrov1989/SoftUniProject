@@ -2,7 +2,7 @@
 
 <h1><?= htmlspecialchars($this->title)?></h1>
 
-<?php /*var_dump($this->users) */?>
+<?php var_dump($this->model->getRank($_SESSION['user_id'])['PostsFromUser']) ?>
 
 <table>
     <tr>

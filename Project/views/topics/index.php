@@ -30,4 +30,4 @@
     <!--    Also, this will add two links, which will later point to the edit and delete functionalities. -->
     <!--    We will implement them later.-->
 </table>
-<a href="<?=APP_ROOT?>/topics/create">[Create new]</a>
+<!--<a href="<?/*=APP_ROOT*/?>/topics/create">[Create new]</a>-->

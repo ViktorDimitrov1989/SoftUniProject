@@ -136,6 +136,7 @@ class UsersModel extends BaseModel
         $statement = self::$db->prepare("SELECT COUNT(user_id) AS PostsFromUser FROM posts WHERE user_id = ?");
         $statement->bind_param("i", $id);
         $statement->execute();
-        return $statement;
+        $result = $statement->get_result()->fetch_assoc();
+        return $result;
     }
 }
